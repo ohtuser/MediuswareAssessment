@@ -88,9 +88,7 @@ class TransactionController extends Controller
                     DB::rollBack();
                     return redirect()->route('withdraw')->with('error', 'Insufficient Balance');
                 }
-
                 $transaction->save();
-                
                 $user->balance -= $request->amount;
                 $user->balance -= $fee;
                 $user->save();
