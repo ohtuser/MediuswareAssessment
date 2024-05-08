@@ -16,14 +16,10 @@ Route::post('login_post', 'App\Http\Controllers\AuthController@login_post')->nam
 
 Route::middleware(['isAuth'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-
     Route::get('/', [TransactionController::class, 'dashboard'])->name('dashboard');
-});
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::prefix('user')->name('user.')->group(function () {
-        Route::get('create', 'App\Http\Controllers\UserController@create')->name('create');
-        Route::post('store', 'App\Http\Controllers\UserController@store')->name('store');
-    });
+    Route::match(['get', 'post'] ,'deposit', [TransactionController::class, 'deposit'])->name('deposit');
+    Route::match(['get', 'post'] ,'withdraw', [TransactionController::class, 'withdraw'])->name('withdraw');
+
 });
 
